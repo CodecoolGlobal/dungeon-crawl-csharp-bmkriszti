@@ -93,4 +93,5 @@ public abstract class GameObject
         Appearance.CopyAppearanceTo(screenSurface.Surface[Position]);
         screenSurface.IsDirty = true;
     }
+    
 }

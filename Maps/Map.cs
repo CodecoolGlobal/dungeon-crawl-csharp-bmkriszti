@@ -19,6 +19,7 @@ public class Map
     private ScreenSurface _mapSurface;
     private static readonly Point ZeroPoint = new Point(0, 0);
 
+    
     /// <summary>
     /// Constructor.
     /// </summary>
