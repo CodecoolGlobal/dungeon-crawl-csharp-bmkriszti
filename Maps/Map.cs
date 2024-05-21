@@ -1,4 +1,5 @@
-﻿using DungeonCrawl.Tiles;
+﻿using System;
+using DungeonCrawl.Tiles;
 using SadConsole;
 using SadRogue.Primitives;
 using System.Collections.Generic;
@@ -16,6 +17,7 @@ public class Map
     public Player UserControlledObject { get; private set; }
     private List<GameObject> _mapObjects;
     private ScreenSurface _mapSurface;
+    private static readonly Point ZeroPoint = new Point(0, 0);
 
     /// <summary>
     /// Constructor.
@@ -30,11 +32,37 @@ public class Map
 
         UserControlledObject = new Player(_mapSurface.Surface.Area.Center, _mapSurface);
 
-        // Create 5 treasure tiles and 5 monster tiles
-        for (int i = 0; i < 5; i++)
+        InitializeObjects();
+    }
+
+    private void InitializeObjects()
+    {
+        CreateMultipleObjects(5, CreateTreasure);
+        CreateMultipleObjects(5, CreateMonster);
+        CreateMultipleObjects(2, () => CreateItem(new Key(ZeroPoint, _mapSurface)));
+        CreateMultipleObjects(2, () => CreateItem(new Sword(ZeroPoint, _mapSurface)));
+    }
+
+    private void CreateMultipleObjects(int count, Action createObject)
+    {
+        for (int i = 0; i < count; i++)
         {
-            CreateTreasure();
-            CreateMonster();
+            createObject();
+        }
+    }
+
+    private void CreateItem(GameObject item)
+    {
+        for (int i = 0; i < 1000; i++)
+        {
+            Point randomPosition = new Point(Game.Instance.Random.Next(0, _mapSurface.Surface.Width),
+                Game.Instance.Random.Next(0, _mapSurface.Surface.Height));
+            if (_mapObjects.All(obj => obj.Position != randomPosition))
+            {
+                item.Position = randomPosition;
+                _mapObjects.Add(item);
+                break;
+            }
         }
     }
 

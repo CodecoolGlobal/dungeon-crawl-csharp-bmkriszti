@@ -9,10 +9,11 @@ namespace DungeonCrawl.Tiles;
 /// </summary>
 public abstract class GameObject
 {
-    public Point Position { get; private set; }
+    public Point Position { get; set; }
     public void RestoreMap(Map map) => _mapAppearance.CopyAppearanceTo(map.SurfaceObject.Surface[Position]);
     private ColoredGlyph Appearance { get; set; }
     private ColoredGlyph _mapAppearance = new ColoredGlyph();
+    protected Map map;
 
     /// <summary>
     /// Constructor.
@@ -82,6 +83,13 @@ public abstract class GameObject
     /// <param name="screenSurface"></param>
     private void DrawGameObject(IScreenSurface screenSurface)
     {
+        // Appearance.CopyAppearanceTo(screenSurface.Surface[Position]);
+        // screenSurface.IsDirty = true;
+
+        if (map.TryGetMapObject(Position, out GameObject existingObject) && existingObject != this)
+        {
+            existingObject.DrawGameObject(screenSurface);
+        }
         Appearance.CopyAppearanceTo(screenSurface.Surface[Position]);
         screenSurface.IsDirty = true;
     }
