@@ -1,4 +1,5 @@
-﻿using DungeonCrawl.Maps;
+﻿using System.Collections.Generic;
+using DungeonCrawl.Maps;
 using SadConsole;
 using SadRogue.Primitives;
 
@@ -14,8 +15,12 @@ public class Player : GameObject
     /// </summary>
     /// <param name="position"></param>
     /// <param name="hostingSurface"></param>
+    ///
+    public List<GameObject> Inventory { get; private set; }
+    
     public Player(Point position, IScreenSurface hostingSurface)
         : base(new ColoredGlyph(Color.Green, Color.Transparent, 2), position, hostingSurface)
     {
+        Inventory = new List<GameObject>();
     }
 }
