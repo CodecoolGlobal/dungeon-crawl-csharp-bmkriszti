@@ -26,8 +26,22 @@ namespace DungeonCrawl.Maps
 
             UserControlledObject = new Player(_mapSurface.Surface.Area.Center, _mapSurface);
             _mapObjects.Add(UserControlledObject);
+            FillBackground();
 
             InitializeObjects();
+        }
+        private void FillBackground()
+        {
+            Color[] colors = new[] { Color.SandyBrown, Color.SandyBrown, Color.SandyBrown, Color.SandyBrown };
+            float[] colorStops = new[] { 0f, 0.35f, 0.75f, 1f };
+
+            Algorithms.GradientFill(_mapSurface.FontSize,
+                _mapSurface.Surface.Area.Center,
+                _mapSurface.Surface.Width / 3,
+                45,
+                _mapSurface.Surface.Area,
+                new Gradient(colors, colorStops),
+                (x, y, color) => _mapSurface.Surface[x, y].Background = color);
         }
 
         private void InitializeObjects()
