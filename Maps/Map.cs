@@ -28,8 +28,7 @@ namespace DungeonCrawl.Maps
             _mapObjects.Add(UserControlledObject);
             FillBackground();
 
-            CreateMultipleObjects(mapWidth*mapHeight/10, CreateWall);
-            InitializeObjects();
+            InitializeObjects(mapWidth, mapHeight);
         }
         private void FillBackground()
         {
@@ -45,12 +44,13 @@ namespace DungeonCrawl.Maps
                 (x, y, color) => _mapSurface.Surface[x, y].Background = color);
         }
 
-        private void InitializeObjects()
+        private void InitializeObjects(int mapWidth, int mapHeight)
         {
-            CreateMultipleObjects(5, CreateTreasure);
-            CreateMultipleObjects(5, CreateMonster);
-            CreateMultipleObjects(2, CreateKey); 
-            CreateMultipleObjects(2, CreateSword);
+            CreateMultipleObjects(mapWidth*mapHeight/5, CreateWall);
+            CreateMultipleObjects(mapWidth*mapHeight/90, CreateTreasure);
+            CreateMultipleObjects(mapWidth*mapHeight/45, CreateMonster);
+            CreateMultipleObjects(mapWidth*mapHeight/90, CreateKey); 
+            CreateMultipleObjects(mapWidth*mapHeight/90, CreateSword);
             
         }
 

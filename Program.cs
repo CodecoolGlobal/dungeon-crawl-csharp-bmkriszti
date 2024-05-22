@@ -8,8 +8,8 @@ namespace DungeonCrawl;
 /// </summary>
 public static class Program
 {
-    private const int ViewPortWidth = 150;
-    private const int ViewPortHeight = 50;
+    private const int ViewPortWidth = 30;
+    private const int ViewPortHeight = 15;
 
     /// <summary>
     /// The entry point of the program.

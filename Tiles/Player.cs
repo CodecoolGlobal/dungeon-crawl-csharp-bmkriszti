@@ -20,7 +20,7 @@ public class Player : GameObject
     public List<GameObject> Inventory { get; private set; } = new List<GameObject>();
     
     public Player(Point position, IScreenSurface hostingSurface)
-        : base(new ColoredGlyph(Color.Green, Color.Transparent, 2), position, hostingSurface)
+        : base(new ColoredGlyph(Color.Green, Color.SandyBrown, 2), position, hostingSurface)
     {
         Inventory = new List<GameObject>();
     }

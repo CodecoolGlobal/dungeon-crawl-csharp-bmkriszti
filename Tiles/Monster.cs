@@ -14,7 +14,7 @@ public class Monster : GameObject
     /// <param name="position"></param>
     /// <param name="hostingSurface"></param>
     public Monster(Point position, IScreenSurface hostingSurface)
-        : base(new ColoredGlyph(Color.Red, Color.Transparent, 'M'), position, hostingSurface)
+        : base(new ColoredGlyph(Color.Red, Color.SandyBrown, 'M'), position, hostingSurface)
     {
     }
 }

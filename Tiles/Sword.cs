@@ -7,7 +7,7 @@ namespace DungeonCrawl.Tiles
     public class Sword : Item
     {
         public Sword(Point position, IScreenSurface hostingSurface)
-            : base(new ColoredGlyph(Color.Gray, Color.Transparent, 'S'), position, hostingSurface)
+            : base(new ColoredGlyph(Color.Gray, Color.SandyBrown, 'S'), position, hostingSurface)
         {
         }
         protected override bool Touched(GameObject source, Map map)
