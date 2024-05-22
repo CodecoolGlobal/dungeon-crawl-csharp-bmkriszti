@@ -3,42 +3,35 @@ using SadConsole;
 using SadRogue.Primitives;
 using Console = System.Console;
 
-namespace DungeonCrawl.Tiles;
-
-/// <summary>
-/// Class <c>Monster</c> models a hostile object in the game.
-/// </summary>
-public class Monster : GameObject
+namespace DungeonCrawl.Tiles
 {
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="position"></param>
-    /// <param name="hostingSurface"></param>
-    public Monster(Point position, IScreenSurface hostingSurface)
-        : base(new ColoredGlyph(Color.Red, Color.SandyBrown, 'M'), position, hostingSurface,30,2)
+    public abstract class Monster : GameObject
     {
-    }
-    protected override bool Touched(GameObject source, Map map)
-    {
-        // Is the player the one that touched us?
-        if (source == map.UserControlledObject)
+        public Monster(ColoredGlyph appearance, Point position, IScreenSurface hostingSurface, int hp, int attackDamage)
+            : base(appearance, position, hostingSurface, hp, attackDamage)
         {
-            if (Hp > 0)
-            {
-                
-                Hp -= source.AttackDamage;
-      
-                Console.WriteLine($"{Hp}");
-                return false;
-            }
-
-            if (Hp <= 0)
-            {
-                map.RemoveMapObject(this);
-                return true;
-            }
         }
-        return false;
+
+        protected override bool Touched(GameObject source, Map map)
+        {
+            if (source == map.UserControlledObject)
+            {
+                if (Hp > 0)
+                {
+                    Hp -= source.AttackDamage;
+                    source.Hp -= AttackDamage;
+                    Console.WriteLine($"Player {source.Hp},{source.AttackDamage}");
+                    Console.WriteLine($"Monster {Hp}");
+                    return false;
+                }
+
+                if (Hp <= 0)
+                {
+                    map.RemoveMapObject(this);
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 }

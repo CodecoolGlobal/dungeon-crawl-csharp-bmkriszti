@@ -17,26 +17,46 @@ public class Player : GameObject
     /// <param name="position"></param>
     /// <param name="hostingSurface"></param>
     ///
-    public List<GameObject> Inventory { get; private set; } = new List<GameObject>();
+    
     
     
     public Player(Point position, IScreenSurface hostingSurface)
         : base(new ColoredGlyph(Color.Green, Color.SandyBrown, 2), position, hostingSurface,50,5)
     {
-        Inventory = new List<GameObject>();
     }
     
-    protected override bool Touched(GameObject source, Map map)
-    {
-        // If a Player touches an item, pick it up
-        if (source is Key || source is Sword || source is Treasure)
-        {
-            Inventory.Add(source);
-            map.RemoveMapObject(source);
-            
-            return true; 
-        }
-        return base.Touched(source, map);
-    }
+    // protected override bool Touched(GameObject source, Map map)
+    // {
+    //     // If a Player touches an item, pick it up
+    //     if (source is Key || source is Treasure)
+    //     {
+    //         
+    //         Inventory.Add(source);
+    //         map.RemoveMapObject(source);
+    //         
+    //         return true; 
+    //     }
+    //
+    //     if (source is Sword sword)
+    //     {
+    //         // Increment attack damage
+    //         AttackDamage += 2;
+    //
+    //         // Add the sword to inventory
+    //         Inventory.Add(sword);
+    //
+    //         // Remove the sword from the map
+    //         map.RemoveMapObject(sword);
+    //
+    //         // Optionally, display a message indicating the sword was picked up
+    //         Console.WriteLine("You picked up a sword!");
+    //
+    //         // Optionally, display the updated attack damage
+    //         Console.WriteLine($"New attack damage: {AttackDamage}");
+    //
+    //         return true;
+    //     }
+    //     return base.Touched(source, map);
+    // }
     
 }

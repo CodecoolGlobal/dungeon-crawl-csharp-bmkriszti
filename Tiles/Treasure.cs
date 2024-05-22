@@ -1,6 +1,7 @@
 ﻿using DungeonCrawl.Maps;
 using SadConsole;
 using SadRogue.Primitives;
+using Console = System.Console;
 
 namespace DungeonCrawl.Tiles;
 
@@ -27,6 +28,8 @@ public class Treasure : GameObject
         // Is the player the one that touched us?
         if (source == map.UserControlledObject)
         {
+            source.Hp += 12;
+            Console.WriteLine($"+hp{source.Hp}");
             map.RemoveMapObject(this);
             return true;
         }

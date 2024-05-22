@@ -130,6 +130,7 @@ namespace DungeonCrawl.Maps
 
                 GameObject treasure = new Treasure(randomPosition, _mapSurface);
                 _mapObjects.Add(treasure);
+                
                 break;
             }
         }
@@ -144,10 +145,38 @@ namespace DungeonCrawl.Maps
                 bool foundObject = _mapObjects.Any(obj => obj.Position == randomPosition);
                 if (foundObject) continue;
 
-                GameObject monster = new Monster(randomPosition, _mapSurface);
-                _mapObjects.Add(monster);
+                GameObject cyclops = new Cyclops(randomPosition, _mapSurface);
+                _mapObjects.Add(cyclops);
+                
                 break;
             }
+            for (int i = 0; i < 1000; i++)
+            {
+                Point randomPosition = new Point(Game.Instance.Random.Next(0, _mapSurface.Surface.Width),
+                    Game.Instance.Random.Next(0, _mapSurface.Surface.Height));
+
+                bool foundObject = _mapObjects.Any(obj => obj.Position == randomPosition);
+                if (foundObject) continue;
+                
+                GameObject giant = new Giant(randomPosition, _mapSurface);
+                _mapObjects.Add(giant);
+                
+                break;
+            }
+            for (int i = 0; i < 1000; i++)
+            {
+                Point randomPosition = new Point(Game.Instance.Random.Next(0, _mapSurface.Surface.Width),
+                    Game.Instance.Random.Next(0, _mapSurface.Surface.Height));
+
+                bool foundObject = _mapObjects.Any(obj => obj.Position == randomPosition);
+                if (foundObject) continue;
+
+                GameObject hydra = new Hydra(randomPosition, _mapSurface);
+                _mapObjects.Add(hydra);
+                
+                break;
+            }
+            
         }
         
         private void CreateWall()

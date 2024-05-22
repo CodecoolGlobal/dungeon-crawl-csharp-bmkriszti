@@ -1,6 +1,7 @@
 using DungeonCrawl.Maps;
 using SadConsole;
 using SadRogue.Primitives;
+using Console = System.Console;
 
 namespace DungeonCrawl.Tiles
 {
@@ -15,6 +16,13 @@ namespace DungeonCrawl.Tiles
             // Is the player the one that touched us?
             if (source == map.UserControlledObject)
             {
+                source.AttackDamage += 5;
+                Inventory.Add(this);
+                foreach (var item in Inventory)
+                {
+                    Console.WriteLine($"{item}");
+                }
+                
                 map.RemoveMapObject(this);
                 return true;
             }

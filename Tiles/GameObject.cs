@@ -1,4 +1,5 @@
-﻿using DungeonCrawl.Maps;
+﻿using System.Collections.Generic;
+using DungeonCrawl.Maps;
 using SadConsole;
 using SadRogue.Primitives;
 
@@ -9,6 +10,7 @@ namespace DungeonCrawl.Tiles
         public Point Position { get; set; }
         public int Hp { get; set; }
         public int AttackDamage { get; set; }
+        public static List<GameObject> Inventory { get; private set; } = new List<GameObject>();
         public void RestoreMap(Map map) => _mapAppearance.CopyAppearanceTo(map.SurfaceObject.Surface[Position]);
         public ColoredGlyph Appearance { get; set; }
         private ColoredGlyph _mapAppearance = new ColoredGlyph();
@@ -20,6 +22,7 @@ namespace DungeonCrawl.Tiles
             Position = position;
             Hp = hp;
             AttackDamage = attackDamage;
+            Inventory = new List<GameObject>();
 
             hostingSurface.Surface[position].CopyAppearanceTo(_mapAppearance);
 
