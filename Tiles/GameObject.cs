@@ -34,12 +34,12 @@ namespace DungeonCrawl.Tiles
                     return false;
                 }
             }
-
             _mapAppearance.CopyAppearanceTo(map.SurfaceObject.Surface[Position]);
             map.SurfaceObject.Surface[newPosition].CopyAppearanceTo(_mapAppearance);
-
+            _mapAppearance.CopyAppearanceTo(map.SurfaceObject.Surface[Position]);
             Position = newPosition;
             DrawGameObject(map.SurfaceObject);
+            
 
             return true;
         }
