@@ -34,8 +34,8 @@ namespace DungeonCrawl.Maps
         {
             CreateMultipleObjects(5, CreateTreasure);
             CreateMultipleObjects(5, CreateMonster);
-            CreateMultipleObjects(2, () => CreateItem(new Key(ZeroPoint, _mapSurface)));
-            CreateMultipleObjects(2, () => CreateItem(new Sword(ZeroPoint, _mapSurface)));
+            CreateMultipleObjects(2, CreateKey); 
+            CreateMultipleObjects(2, CreateSword);
         }
 
         private void CreateMultipleObjects(int count, Action createObject)
@@ -46,22 +46,35 @@ namespace DungeonCrawl.Maps
             }
         }
 
-        private void CreateItem(Item item)
+        private void CreateKey()
         {
             for (int i = 0; i < 1000; i++)
             {
                 Point randomPosition = new Point(Game.Instance.Random.Next(0, _mapSurface.Surface.Width),
                     Game.Instance.Random.Next(0, _mapSurface.Surface.Height));
-                if (_mapObjects.All(obj => obj.Position != randomPosition))
-                {
-                    bool foundObject = _mapObjects.Any(obj => obj.Position == randomPosition);
-                    if (foundObject) continue;
-                    
-                    item.Position = randomPosition;
-                    _mapObjects.Add(item);
-                    Console.WriteLine($"Item {item.GetType().Name} placed at {randomPosition}");
-                    break;
-                }
+
+                bool foundObject = _mapObjects.Any(obj => obj.Position == randomPosition);
+                if (foundObject) continue;
+
+                GameObject key = new Key(randomPosition, _mapSurface);
+                _mapObjects.Add(key);
+                break;
+            }
+        }
+
+        private void CreateSword()
+        {
+            for (int i = 0; i < 1000; i++)
+            {
+                Point randomPosition = new Point(Game.Instance.Random.Next(0, _mapSurface.Surface.Width),
+                    Game.Instance.Random.Next(0, _mapSurface.Surface.Height));
+
+                bool foundObject = _mapObjects.Any(obj => obj.Position == randomPosition);
+                if (foundObject) continue;
+
+                GameObject sword = new Sword(randomPosition, _mapSurface);
+                _mapObjects.Add(sword);
+                break;
             }
         }
 
