@@ -15,7 +15,7 @@ public class Treasure : GameObject
     /// <param name="position"></param>
     /// <param name="hostingSurface"></param>
     public Treasure(Point position, IScreenSurface hostingSurface)
-        : base(new ColoredGlyph(Color.Yellow, Color.SandyBrown, 15), position, hostingSurface)
+        : base(new ColoredGlyph(Color.Yellow, Color.SandyBrown, 15), position, hostingSurface,1,1)
     {
     }
 

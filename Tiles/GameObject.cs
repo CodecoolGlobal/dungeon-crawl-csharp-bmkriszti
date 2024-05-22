@@ -7,15 +7,19 @@ namespace DungeonCrawl.Tiles
     public abstract class GameObject
     {
         public Point Position { get; set; }
+        public int Hp { get; set; }
+        public int AttackDamage { get; set; }
         public void RestoreMap(Map map) => _mapAppearance.CopyAppearanceTo(map.SurfaceObject.Surface[Position]);
-        private ColoredGlyph Appearance { get; set; }
+        public ColoredGlyph Appearance { get; set; }
         private ColoredGlyph _mapAppearance = new ColoredGlyph();
         protected Map map;
 
-        protected GameObject(ColoredGlyph appearance, Point position, IScreenSurface hostingSurface)
+        protected GameObject(ColoredGlyph appearance, Point position, IScreenSurface hostingSurface,int hp,int attackDamage)
         {
             Appearance = appearance;
             Position = position;
+            Hp = hp;
+            AttackDamage = attackDamage;
 
             hostingSurface.Surface[position].CopyAppearanceTo(_mapAppearance);
 
@@ -46,6 +50,7 @@ namespace DungeonCrawl.Tiles
 
         protected virtual bool Touched(GameObject source, Map map)
         {
+            
             return false;
         }
 
