@@ -2,7 +2,9 @@
 using DungeonCrawl.Maps;
 using SadConsole;
 using SadRogue.Primitives;
+using System;
 using Console = System.Console;
+
 
 namespace DungeonCrawl.Tiles;
 
@@ -17,14 +19,26 @@ public class Player : GameObject
     /// <param name="position"></param>
     /// <param name="hostingSurface"></param>
     ///
-    
-    
-    
+    public List<GameObject> Inventory { get; private set; } = new List<GameObject>();
+
     public Player(Point position, IScreenSurface hostingSurface)
-        : base(new ColoredGlyph(Color.Green, Color.SandyBrown, 2), position, hostingSurface,50,5)
+        : base(new ColoredGlyph(Color.Green, Color.Transparent, 2), position, hostingSurface, 50, 5)
     {
+        Inventory = new List<GameObject>();
+
     }
-    
+
+
+    public void DisplayInventory()
+    {
+        Console.WriteLine("Inventory:");
+        foreach (var item in Inventory)
+        {
+            Console.WriteLine("- " + item.GetType().Name);
+        }
+    }
+
+}
     // protected override bool Touched(GameObject source, Map map)
     // {
     //     // If a Player touches an item, pick it up
@@ -58,5 +72,3 @@ public class Player : GameObject
     //     }
     //     return base.Touched(source, map);
     // }
-    
-}

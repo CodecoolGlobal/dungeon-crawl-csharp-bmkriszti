@@ -23,17 +23,17 @@ public class Treasure : GameObject
     /// <param name="source"></param>
     /// <param name="map"></param>
     /// <returns></returns>
-    protected override bool Touched(GameObject source, Map map)
-    {
-        // Is the player the one that touched us?
-        if (source == map.UserControlledObject)
-        {
-            source.Hp += 12;
-            Console.WriteLine($"+hp{source.Hp}");
-            map.RemoveMapObject(this);
-            return true;
-        }
-
-        return false;
-    }
+//     protected override bool Touched(GameObject source, Map map)
+//     {
+//         // Is the player the one that touched us?
+//         if (source == map.UserControlledObject)
+//         {
+//             source.Hp += 12;
+//             Console.WriteLine($"+hp{source.Hp}");
+//             map.RemoveMapObject(this);
+//             return true;
+//         }
+//
+//         return false;
+//     }
 }

@@ -36,14 +36,35 @@ namespace DungeonCrawl.Tiles
 
             if (map.TryGetMapObject(newPosition, out GameObject foundObject))
             {
-                if (!foundObject.Touched(this, map))
+                if (foundObject != null)
                 {
-                    return false;
+                    if (foundObject.Touched(this, map))
+                    {
+                        return false;
+                    }
+
+                    if (this is Player player && (foundObject is Key || foundObject is Sword || foundObject is Treasure))
+                    {
+                        player.Inventory.Add(foundObject);
+                        player.DisplayInventory();
+                        map.RemoveMapObject(foundObject);
+
+                        if (foundObject is Sword)
+                        {
+                            player.AttackDamage += 5;
+                        }
+
+                        if (foundObject is Treasure)
+                        {
+                            player.Hp += 15;
+                        }
+                    }
                 }
             }
             _mapAppearance.CopyAppearanceTo(map.SurfaceObject.Surface[Position]);
             map.SurfaceObject.Surface[newPosition].CopyAppearanceTo(_mapAppearance);
-            _mapAppearance.CopyAppearanceTo(map.SurfaceObject.Surface[Position]);
+            
+            //_mapAppearance.CopyAppearanceTo(map.SurfaceObject.Surface[Position]);
             Position = newPosition;
             DrawGameObject(map.SurfaceObject);
             
