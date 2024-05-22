@@ -2,96 +2,75 @@
 using SadConsole;
 using SadRogue.Primitives;
 
-namespace DungeonCrawl.Tiles;
-
-/// <summary>
-/// Class <c>GameObject</c> models any objects in the game.
-/// </summary>
-public abstract class GameObject
+namespace DungeonCrawl.Tiles
 {
-    public Point Position { get; set; }
-    public void RestoreMap(Map map) => _mapAppearance.CopyAppearanceTo(map.SurfaceObject.Surface[Position]);
-    private ColoredGlyph Appearance { get; set; }
-    private ColoredGlyph _mapAppearance = new ColoredGlyph();
-    protected Map map;
-
-    /// <summary>
-    /// Constructor.
-    /// </summary>
-    /// <param name="appearance"></param>
-    /// <param name="position"></param>
-    /// <param name="hostingSurface"></param>
-    protected GameObject(ColoredGlyph appearance, Point position, IScreenSurface hostingSurface)
+    public abstract class GameObject
     {
-        Appearance = appearance;
-        Position = position;
+        public Point Position { get; set; }
+        public void RestoreMap(Map map) => _mapAppearance.CopyAppearanceTo(map.SurfaceObject.Surface[Position]);
+        private ColoredGlyph Appearance { get; set; }
+        private ColoredGlyph _mapAppearance = new ColoredGlyph();
+        protected Map map;
 
-        // Store the map cell
-        hostingSurface.Surface[position].CopyAppearanceTo(_mapAppearance);
-
-        // Draw the object
-        DrawGameObject(hostingSurface);
-    }
-
-    /// <summary>
-    /// Moves the object to the given position on the map.
-    /// </summary>
-    /// <param name="newPosition"></param>
-    /// <param name="map"></param>
-    /// <returns></returns>
-    public bool Move(Point newPosition, Map map)
-    {
-        // Check new position is valid
-        if (!map.SurfaceObject.Surface.IsValidCell(newPosition.X, newPosition.Y)) return false;
-
-        // Check if other object is there
-        if (map.TryGetMapObject(newPosition, out GameObject foundObject))
+        protected GameObject(ColoredGlyph appearance, Point position, IScreenSurface hostingSurface)
         {
-            // We touched the other object, but they won't allow us to move into the space
-            if (!foundObject.Touched(this, map))
-            {
+            Appearance = appearance;
+            Position = position;
+
+            hostingSurface.Surface[position].CopyAppearanceTo(_mapAppearance);
+
+            DrawGameObject(hostingSurface);
+        }
+
+        public bool Move(Point newPosition, Map map)
+        {
+            if (!map.SurfaceObject.Surface.IsValidCell(newPosition.X, newPosition.Y) || map.IsWall(newPosition)) 
                 return false;
+
+            if (map.TryGetMapObject(newPosition, out GameObject foundObject))
+            {
+                if (!foundObject.Touched(this, map))
+                {
+                    return false;
+                }
             }
+
+            _mapAppearance.CopyAppearanceTo(map.SurfaceObject.Surface[Position]);
+            map.SurfaceObject.Surface[newPosition].CopyAppearanceTo(_mapAppearance);
+
+            Position = newPosition;
+            DrawGameObject(map.SurfaceObject);
+
+            return true;
         }
 
-        // Restore the old cell
-        _mapAppearance.CopyAppearanceTo(map.SurfaceObject.Surface[Position]);
-
-        // Store the map cell of the new position
-        map.SurfaceObject.Surface[newPosition].CopyAppearanceTo(_mapAppearance);
-
-        Position = newPosition;
-        DrawGameObject(map.SurfaceObject);
-
-        return true;
-    }
-
-    /// <summary>
-    /// Defines what should happen if another object touches the current one.
-    /// </summary>
-    /// <param name="source"></param>
-    /// <param name="map"></param>
-    /// <returns></returns>
-    protected virtual bool Touched(GameObject source, Map map)
-    {
-        return false;
-    }
-
-    /// <summary>
-    /// Draws the object on the screen.
-    /// </summary>
-    /// <param name="screenSurface"></param>
-    private void DrawGameObject(IScreenSurface screenSurface)
-    {
-        // Appearance.CopyAppearanceTo(screenSurface.Surface[Position]);
-        // screenSurface.IsDirty = true;
-
-        if (map.TryGetMapObject(Position, out GameObject existingObject) && existingObject != this)
+        protected virtual bool Touched(GameObject source, Map map)
         {
-            existingObject.DrawGameObject(screenSurface);
+            return false;
         }
-        Appearance.CopyAppearanceTo(screenSurface.Surface[Position]);
-        screenSurface.IsDirty = true;
+
+        private void DrawGameObject(IScreenSurface screenSurface)
+        {
+            // Appearance.CopyAppearanceTo(screenSurface.Surface[Position]); 
+            // screenSurface.IsDirty = true;
+            // if (map != null && map.TryGetMapObject(Position, out GameObject existingObject) && existingObject != this)
+            // {
+            //     existingObject.DrawGameObject(screenSurface);
+            // }
+            // Appearance.CopyAppearanceTo(screenSurface.Surface[Position]);
+            // screenSurface.IsDirty = true;
+            if (map != null && map.TryGetMapObject(Position, out GameObject existingObject) && existingObject != this)
+            {
+                existingObject.Appearance.CopyAppearanceTo(screenSurface.Surface[Position]);
+            }
+            else
+            {
+                // Draw the current object's appearance.
+                Appearance.CopyAppearanceTo(screenSurface.Surface[Position]);
+            }
+
+            // Mark the screen as dirty to indicate it needs to be redrawn.
+            screenSurface.IsDirty = true;
+        }
     }
-    
 }
