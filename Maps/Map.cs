@@ -28,6 +28,7 @@ namespace DungeonCrawl.Maps
             _mapObjects.Add(UserControlledObject);
             FillBackground();
 
+            CreateMultipleObjects(mapWidth*mapHeight/10, CreateWall);
             InitializeObjects();
         }
         private void FillBackground()
@@ -50,6 +51,7 @@ namespace DungeonCrawl.Maps
             CreateMultipleObjects(5, CreateMonster);
             CreateMultipleObjects(2, CreateKey); 
             CreateMultipleObjects(2, CreateSword);
+            
         }
 
         private void CreateMultipleObjects(int count, Action createObject)
@@ -144,6 +146,22 @@ namespace DungeonCrawl.Maps
 
                 GameObject monster = new Monster(randomPosition, _mapSurface);
                 _mapObjects.Add(monster);
+                break;
+            }
+        }
+        
+        private void CreateWall()
+        {
+            for (int i = 0; i < 1000; i++)
+            {
+                Point randomPosition = new Point(Game.Instance.Random.Next(0, _mapSurface.Surface.Width),
+                    Game.Instance.Random.Next(0, _mapSurface.Surface.Height));
+
+                bool foundObject = _mapObjects.Any(obj => obj.Position == randomPosition);
+                if (foundObject) continue;
+
+                GameObject wall = new Wall(randomPosition, _mapSurface);
+                _mapObjects.Add(wall);
                 break;
             }
         }
