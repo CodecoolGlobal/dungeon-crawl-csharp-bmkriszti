@@ -14,7 +14,7 @@ public class Wall : GameObject
     /// <param name="position"></param>
     /// <param name="hostingSurface"></param>
     public Wall(Point position, IScreenSurface hostingSurface)
-        : base(new ColoredGlyph(Color.White, Color.SandyBrown, '#'), position, hostingSurface,1,1)
+        : base(new ColoredGlyph(Color.Black, Color.Moccasin, '#'), position, hostingSurface,1,1)
     {
     }
 }

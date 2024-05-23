@@ -36,7 +36,7 @@ public class RootScreen : ScreenObject
         var items = _map.UserControlledObject.Inventory;
         for (int i = 0; i < items.Count; i++)
         {
-            _inventoryConsole.Print(0, i, $"{items[i].GetType().Name} at position {items[i].Position}");
+            _inventoryConsole.Print(0, i, $"{items[i].GetType().Name}");
         }
         _inventoryConsole.IsDirty = true; 
     }

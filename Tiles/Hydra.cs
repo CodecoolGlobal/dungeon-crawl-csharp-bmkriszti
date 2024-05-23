@@ -7,7 +7,7 @@ namespace DungeonCrawl.Tiles
     public class Hydra : Monster
     {
         public Hydra(Point position, IScreenSurface hostingSurface)
-            : base(new ColoredGlyph(Color.Red, Color.SandyBrown, 'H'), position, hostingSurface, 35, 10)
+            : base(new ColoredGlyph(Color.Red, Color.Moccasin, 'H'), position, hostingSurface, 25, 10)
         {
         }
     }

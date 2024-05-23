@@ -16,24 +16,9 @@ public class Treasure : GameObject
     /// <param name="position"></param>
     /// <param name="hostingSurface"></param>
     public Treasure(Point position, IScreenSurface hostingSurface)
-        : base(new ColoredGlyph(Color.Yellow, Color.SandyBrown, 15), position, hostingSurface,1,1)
+        : base(new ColoredGlyph(Color.Orange, Color.Moccasin, 15), position, hostingSurface,1,1)
     {
     }
 
-    /// <param name="source"></param>
-    /// <param name="map"></param>
-    /// <returns></returns>
-//     protected override bool Touched(GameObject source, Map map)
-//     {
-//         // Is the player the one that touched us?
-//         if (source == map.UserControlledObject)
-//         {
-//             source.Hp += 12;
-//             Console.WriteLine($"+hp{source.Hp}");
-//             map.RemoveMapObject(this);
-//             return true;
-//         }
-//
-//         return false;
-//     }
+    
 }

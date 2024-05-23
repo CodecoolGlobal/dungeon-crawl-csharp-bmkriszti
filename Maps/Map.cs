@@ -32,7 +32,7 @@ namespace DungeonCrawl.Maps
         }
         private void FillBackground()
         {
-            Color[] colors = new[] { Color.SandyBrown, Color.SandyBrown, Color.SandyBrown, Color.SandyBrown };
+            Color[] colors = new[] { Color.Moccasin, Color.Moccasin, Color.Moccasin, Color.Moccasin };
             float[] colorStops = new[] { 0f, 0.35f, 0.75f, 1f };
 
             Algorithms.GradientFill(_mapSurface.FontSize,
@@ -46,11 +46,11 @@ namespace DungeonCrawl.Maps
 
         private void InitializeObjects(int mapWidth, int mapHeight)
         {
-            CreateMultipleObjects(mapWidth*mapHeight/5, CreateWall);
+            CreateMultipleObjects(mapWidth*mapHeight/6, CreateWall);
             CreateMultipleObjects(mapWidth*mapHeight/90, CreateTreasure);
-            CreateMultipleObjects(mapWidth*mapHeight/45, CreateMonster);
-            CreateMultipleObjects(mapWidth*mapHeight/90, CreateKey); 
-            CreateMultipleObjects(mapWidth*mapHeight/90, CreateSword);
+            CreateMultipleObjects(mapWidth*mapHeight/55, CreateMonster);
+            CreateMultipleObjects(mapWidth*mapHeight/97, CreateKey); 
+            CreateMultipleObjects(mapWidth*mapHeight/97, CreateSword);
             
         }
 

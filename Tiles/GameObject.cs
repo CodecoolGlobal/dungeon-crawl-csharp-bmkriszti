@@ -80,25 +80,16 @@ namespace DungeonCrawl.Tiles
 
         private void DrawGameObject(IScreenSurface screenSurface)
         {
-            // Appearance.CopyAppearanceTo(screenSurface.Surface[Position]); 
-            // screenSurface.IsDirty = true;
-            // if (map != null && map.TryGetMapObject(Position, out GameObject existingObject) && existingObject != this)
-            // {
-            //     existingObject.DrawGameObject(screenSurface);
-            // }
-            // Appearance.CopyAppearanceTo(screenSurface.Surface[Position]);
-            // screenSurface.IsDirty = true;
             if (map != null && map.TryGetMapObject(Position, out GameObject existingObject) && existingObject != this)
             {
                 existingObject.Appearance.CopyAppearanceTo(screenSurface.Surface[Position]);
             }
             else
             {
-                // Draw the current object's appearance.
+                
                 Appearance.CopyAppearanceTo(screenSurface.Surface[Position]);
             }
-
-            // Mark the screen as dirty to indicate it needs to be redrawn.
+            
             screenSurface.IsDirty = true;
         }
     }
