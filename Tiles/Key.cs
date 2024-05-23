@@ -7,7 +7,7 @@ namespace DungeonCrawl.Tiles;
     public class Key : Item
     {
         public Key(Point position, IScreenSurface hostingSurface)
-            : base(new ColoredGlyph(Color.Blue, Color.Moccasin, 'K'), position, hostingSurface)
+            : base(new ColoredGlyph(Color.AnsiBlueBright, Color.Black, 'K'), position, hostingSurface)
         {
         }
     

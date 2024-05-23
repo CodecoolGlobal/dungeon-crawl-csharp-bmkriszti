@@ -32,7 +32,7 @@ namespace DungeonCrawl.Maps
         }
         private void FillBackground()
         {
-            Color[] colors = new[] { Color.Moccasin, Color.Moccasin, Color.Moccasin, Color.Moccasin };
+            Color[] colors = new[] { Color.Black, Color.Black, Color.Black, Color.Black };
             float[] colorStops = new[] { 0f, 0.35f, 0.75f, 1f };
 
             Algorithms.GradientFill(_mapSurface.FontSize,
