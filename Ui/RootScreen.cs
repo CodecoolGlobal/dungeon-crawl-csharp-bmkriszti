@@ -11,6 +11,7 @@ namespace DungeonCrawl.Ui;
 public class RootScreen : ScreenObject
 {
     private Map _map;
+    private SadConsole.Console _inventoryConsole;
 
     /// <summary>
     /// Constructor.
@@ -20,6 +21,24 @@ public class RootScreen : ScreenObject
         _map = new Map(Game.Instance.ScreenCellsX, Game.Instance.ScreenCellsY - 5);
 
         Children.Add(_map.SurfaceObject);
+        
+        _inventoryConsole = new SadConsole.Console(Game.Instance.ScreenCellsX, 5);
+        _inventoryConsole.Position = new Point(0, Game.Instance.ScreenCellsY - 5);
+        _inventoryConsole.DefaultBackground = Color.Black;
+        _inventoryConsole.Clear();
+
+        Children.Add(_inventoryConsole);
+    }
+    
+    public void UpdateInventoryDisplay()
+    {
+        _inventoryConsole.Clear();
+        var items = _map.UserControlledObject.Inventory;
+        for (int i = 0; i < items.Count; i++)
+        {
+            _inventoryConsole.Print(0, i, $"{items[i].GetType().Name} at position {items[i].Position}");
+        }
+        _inventoryConsole.IsDirty = true; 
     }
 
     /// <summary>

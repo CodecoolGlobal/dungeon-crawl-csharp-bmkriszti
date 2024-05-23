@@ -3,6 +3,7 @@ using DungeonCrawl.Maps;
 using SadConsole;
 using SadRogue.Primitives;
 using System;
+using DungeonCrawl.Ui;
 using Console = System.Console;
 
 
@@ -27,16 +28,40 @@ public class Player : GameObject
         Inventory = new List<GameObject>();
 
     }
-
-
-    public void DisplayInventory()
+    
+    public bool Move(Point newPosition, Map map)
     {
-        Console.WriteLine("Inventory:");
-        foreach (var item in Inventory)
-        {
-            Console.WriteLine("- " + item.GetType().Name);
-        }
+        base.Move(newPosition, map); // Assuming this calls Touched internally or similar logic
+
+        // After moving, check if inventory updated and call for display update
+        (Game.Instance.Screen as RootScreen)?.UpdateInventoryDisplay();
+        return true;
     }
+    
+    protected override bool Touched(GameObject source, Map map)
+    {
+        // Assume we handle picking up items in Touched method
+        base.Touched(source, map);
+
+        // If item is picked up, add to inventory and update display
+        if (source is Item item)
+        {
+            Inventory.Add(item);
+            map.RemoveMapObject(item);
+            (Game.Instance.Screen as RootScreen)?.UpdateInventoryDisplay();
+        }
+        return true;
+    }
+
+
+    // public void DisplayInventory()
+    // {
+    //     Console.WriteLine("Inventory:");
+    //     foreach (var item in Inventory)
+    //     {
+    //         Console.WriteLine("- " + item.GetType().Name);
+    //     }
+    // }
 
 }
     // protected override bool Touched(GameObject source, Map map)

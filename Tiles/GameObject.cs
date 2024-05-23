@@ -46,7 +46,7 @@ namespace DungeonCrawl.Tiles
                     if (this is Player player && (foundObject is Key || foundObject is Sword || foundObject is Treasure))
                     {
                         player.Inventory.Add(foundObject);
-                        player.DisplayInventory();
+                        //player.DisplayInventory();
                         map.RemoveMapObject(foundObject);
 
                         if (foundObject is Sword)
