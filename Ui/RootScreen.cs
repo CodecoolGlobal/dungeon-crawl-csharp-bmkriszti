@@ -13,10 +13,12 @@ namespace DungeonCrawl.Ui
         private Map _map;
         private SadConsole.Console _inventoryConsole;
         private SadConsole.Console _statsConsole; // Add a stats console
+        private GameOverScreen _gameOverScreen;
 
         public RootScreen()
         {
             _map = new Map(Game.Instance.ScreenCellsX, Game.Instance.ScreenCellsY - 5);
+            _gameOverScreen = new GameOverScreen();
 
             Children.Add(_map.SurfaceObject);
             
@@ -111,6 +113,12 @@ namespace DungeonCrawl.Ui
                 _map.UserControlledObject.Move(_map.UserControlledObject.Position + Direction.Left, _map);
                 handled = true;
             }
+            if (_map.UserControlledObject.Hp <= 0)
+            {
+                // Call method to show game over screen
+                ShowGameOverScreen();
+                handled = true; // Prevent further processing of keyboard input
+            }
             else if (keyboard.IsKeyPressed(Keys.Right))
             {
                 _map.UserControlledObject.Move(_map.UserControlledObject.Position + Direction.Right, _map);
@@ -118,6 +126,11 @@ namespace DungeonCrawl.Ui
             }
 
             return handled;
+        }
+        private void ShowGameOverScreen()
+        {
+            // Add the game over screen to the children of RootScreen
+            Children.Add(_gameOverScreen);
         }
     }
 }
