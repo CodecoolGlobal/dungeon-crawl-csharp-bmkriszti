@@ -9,7 +9,7 @@ namespace DungeonCrawl.Tiles;
 public class Giant : Monster
 {
     public Giant(Point position, IScreenSurface hostingSurface)
-        : base(new ColoredGlyph(Color.Violet, Color.Moccasin, 'G'), position, hostingSurface, 50, 1)
+        : base(new ColoredGlyph(Color.Violet, Color.Black, 'G'), position, hostingSurface, 50, 1)
     {
     }
 }

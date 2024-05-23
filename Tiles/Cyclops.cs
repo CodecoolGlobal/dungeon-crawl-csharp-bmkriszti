@@ -9,7 +9,7 @@ namespace DungeonCrawl.Tiles;
 public class Cyclops : Monster
 {
     public Cyclops(Point position, IScreenSurface hostingSurface)
-        : base(new ColoredGlyph(Color.ForestGreen, Color.Moccasin, 'C'), position, hostingSurface, 15, 5)
+        : base(new ColoredGlyph(Color.ForestGreen, Color.Black, 'C'), position, hostingSurface, 15, 5)
     {
     }
 }
