@@ -197,7 +197,7 @@ namespace DungeonCrawl.Maps
         public bool IsWall(Point position)
         {
             var cell = _mapSurface.Surface[position];
-            // Assume '#' represents a wall
+            
             return cell.Glyph == '#';
         }
     }

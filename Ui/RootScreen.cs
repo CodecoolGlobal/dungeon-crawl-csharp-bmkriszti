@@ -29,22 +29,22 @@ namespace DungeonCrawl.Ui
 
             Children.Add(_inventoryConsole);
 
-            _statsConsole = new SadConsole.Console(Game.Instance.ScreenCellsX, 5); // Initialize stats console
-            _statsConsole.Position = new Point(0, Game.Instance.ScreenCellsY - 10); // Adjust position as needed
+            _statsConsole = new SadConsole.Console(Game.Instance.ScreenCellsX, 5); 
+            _statsConsole.Position = new Point(0, Game.Instance.ScreenCellsY - 10); 
             _statsConsole.DefaultBackground = Color.Black;
             _statsConsole.Clear();
 
-            Children.Add(_statsConsole); // Add stats console to children
+            Children.Add(_statsConsole); 
 
-            // Subscribe to the MonsterStateChanged event
+            
             Monster.MonsterStateChanged += OnMonsterStateChanged;
         }
         private void OnMonsterStateChanged(object sender, EventArgs e)
         {
-            // Ensure the sender is a Monster object
+            
             if (sender is Monster monster)
             {
-                // Update character stats display for the changed monster
+                
                 UpdateCharacterStatsDisplay(monster);
             }
         }
@@ -82,11 +82,11 @@ namespace DungeonCrawl.Ui
 
             var player = _map.UserControlledObject;
 
-            // Display current HP and attack of the player
+            
             _statsConsole.Print(0, 0, $"Player HP: {player.Hp}");
             _statsConsole.Print(0, 1, $"Player Attack: {player.AttackDamage}");
 
-            // Display current HP and attack of the monster
+            
             _statsConsole.Print(0, 3, $"Monster HP: {monster.Hp}");
             _statsConsole.Print(0, 4, $"Monster Attack: {monster.AttackDamage}");
 
@@ -115,9 +115,9 @@ namespace DungeonCrawl.Ui
             }
             if (_map.UserControlledObject.Hp <= 0)
             {
-                // Call method to show game over screen
+                
                 ShowGameOverScreen();
-                handled = true; // Prevent further processing of keyboard input
+                handled = true; 
             }
             else if (keyboard.IsKeyPressed(Keys.Right))
             {
@@ -129,7 +129,7 @@ namespace DungeonCrawl.Ui
         }
         private void ShowGameOverScreen()
         {
-            // Add the game over screen to the children of RootScreen
+            
             Children.Add(_gameOverScreen);
         }
     }

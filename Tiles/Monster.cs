@@ -23,14 +23,14 @@ namespace DungeonCrawl.Tiles
             {
                 if (Hp > 0)
                 {
-                    // Player and monster take damage
+                    
                     Hp -= source.AttackDamage;
                     source.Hp -= AttackDamage;
 
-                    // Notify subscribers that the monster's state has changed
+                    
                     OnMonsterStateChanged();
                     
-                    // Check if monster is still alive
+                   
                     return false;
                 }
 
@@ -38,7 +38,7 @@ namespace DungeonCrawl.Tiles
                 {
                     map.RemoveMapObject(this);
 
-                    // Notify subscribers that the monster's state has changed
+                    
                     OnMonsterStateChanged();
                     
                     return true;
@@ -47,10 +47,10 @@ namespace DungeonCrawl.Tiles
             return false;
         }
 
-        // Define an event to notify when the monster's state changes
+        
         public static event EventHandler MonsterStateChanged;
 
-        // Method to raise the MonsterStateChanged event
+       
         protected virtual void OnMonsterStateChanged()
         {
             MonsterStateChanged?.Invoke(this, EventArgs.Empty);
